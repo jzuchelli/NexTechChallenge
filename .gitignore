@@ -1,0 +1,63 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+.vs/
+.vscode/
+.idea/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET build artifacts
+*.dotCover
+*.ncrunch*
+*.ncrunchproject
+TestResults/
+
+# Angular / Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+out-tsc/
+.angular/cache/
+
+# Environment and IDE
+*.env
+*.local
+frontend/.angular
+.vs/
+.vscode/
+.idea/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET build artifacts
+*.dotCover
+*.ncrunch*
+*.ncrunchproject
+TestResults/
+
+# Angular / Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+out-tsc/
+.angular/cache/
+
+# Environment and IDE
+*.env
+*.local
+frontend/.angular
