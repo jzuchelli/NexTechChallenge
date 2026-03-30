@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Share Tech Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  background: #030a05;
+  color: #c8ffbf;
+}
