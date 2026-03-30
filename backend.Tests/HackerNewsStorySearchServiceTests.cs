@@ -38,6 +38,24 @@ public sealed class HackerNewsStorySearchServiceTests
     }
 
     [Fact]
+    public async Task SearchNewestStoriesAsync_CacheMissCallsClient()
+    {
+        var cache = new MemoryCache(new MemoryCacheOptions());
+        var client = new Mock<IHackerNewsClient>();
+        client.Setup(c => c.GetNewStoryIdsAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new long[] { 1 });
+        client.Setup(c => c.GetItemAsync(1, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new HackerNewsItem { Id = 1, Title = "Story", Type = "story" });
+
+        var service = CreateService(cache, client);
+
+        await service.SearchNewestStoriesAsync(null, 1, 10, CancellationToken.None);
+
+        client.Verify(c => c.GetNewStoryIdsAsync(It.IsAny<CancellationToken>()), Times.Once);
+        client.Verify(c => c.GetItemAsync(1, It.IsAny<CancellationToken>()), Times.Once);
+    }
+
+    [Fact]
     public async Task SearchNewestStoriesAsync_FiltersInvalidItems()
     {
         var cache = new MemoryCache(new MemoryCacheOptions());
@@ -82,6 +100,24 @@ public sealed class HackerNewsStorySearchServiceTests
     }
 
     [Fact]
+    public async Task SearchNewestStoriesAsync_CaseInsensitiveSearchMatches()
+    {
+        var cache = new MemoryCache(new MemoryCacheOptions());
+        var client = new Mock<IHackerNewsClient>();
+        client.Setup(c => c.GetNewStoryIdsAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new long[] { 1 });
+        client.Setup(c => c.GetItemAsync(1, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new HackerNewsItem { Id = 1, Title = "MiXeD CaSe", Type = "story" });
+
+        var service = CreateService(cache, client);
+
+        var result = await service.SearchNewestStoriesAsync("mixed case", 1, 10, CancellationToken.None);
+
+        Assert.Single(result.Items);
+        Assert.Equal(1, result.Items[0].Id);
+    }
+
+    [Fact]
     public async Task SearchNewestStoriesAsync_PagesResults()
     {
         var cache = new MemoryCache(new MemoryCacheOptions());
@@ -100,6 +136,24 @@ public sealed class HackerNewsStorySearchServiceTests
         Assert.Equal(2, result.Page);
         Assert.Equal(1, result.PageSize);
         Assert.Equal(2, result.Items[0].Id);
+    }
+
+    [Fact]
+    public async Task SearchNewestStoriesAsync_IncludesStoriesWithMissingUrls()
+    {
+        var cache = new MemoryCache(new MemoryCacheOptions());
+        var client = new Mock<IHackerNewsClient>();
+        client.Setup(c => c.GetNewStoryIdsAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new long[] { 1 });
+        client.Setup(c => c.GetItemAsync(1, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new HackerNewsItem { Id = 1, Title = "No Url", Url = null, Type = "story" });
+
+        var service = CreateService(cache, client);
+
+        var result = await service.SearchNewestStoriesAsync("no url", 1, 10, CancellationToken.None);
+
+        Assert.Single(result.Items);
+        Assert.Null(result.Items[0].Url);
     }
 
     [Theory]
