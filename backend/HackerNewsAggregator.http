@@ -1,6 +1,6 @@
 @HackerNewsAggregator_HostAddress = http://localhost:5129
 
-GET {{HackerNewsAggregator_HostAddress}}/weatherforecast/
+GET {{HackerNewsAggregator_HostAddress}}/api/hackernews/newest?count=20
 Accept: application/json
 
 ###

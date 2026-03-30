@@ -13,6 +13,16 @@
 ## Ignore List Baseline
 - `.gitignore` includes .NET artifacts (`bin/`, `obj/`, `TestResults/`, ReSharper caches, IDE files) and Angular/Node files (`node_modules/`, `dist/`, `.angular/cache`, log files, env files) to avoid clutter.
 
+## Backend API Design
+- **Controller**: `backend/Controllers/HackerNewsController.cs` exposes `GET /api/hackernews/newest?count=20`.
+- **Services**: `backend/Services/` holds a typed `HttpClient` wrapper for Hacker News (`IHackerNewsClient`/`HackerNewsClient`) and a caching orchestration layer (`IHackerNewsService`/`HackerNewsService`) using `IMemoryCache`.
+- **Models**: `HackerNewsItem` maps HN API JSON; `HackerNewsStory` is the trimmed response contract.
+- **Caching**: `HackerNewsOptions` configured via `appsettings.json` to control TTLs.
+
+## Tests
+- **Unit tests**: `backend.Tests/` contains `HackerNewsServiceTests.cs` (xUnit + Moq) that validate caching behavior, filtering, and input validation.
+- **Solution**: `HackerNewsAggregator.slnx` includes both the backend and test project.
+
 ## Future Agent Guidance
 1. **Initialize commits**: create an initial commit capturing backend/front-end scaffolding once review is done.
 2. **Explore directories**: inspect `backend/` and `frontend/` to understand current scaffolded code before adding features. Use `rg`/`fd` for targeted searches.
