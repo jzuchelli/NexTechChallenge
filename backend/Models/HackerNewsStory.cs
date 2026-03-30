@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace HackerNewsAggregator.Models;
 
+[ExcludeFromCodeCoverage]
 public sealed record HackerNewsStory(
     long Id,
     string? Title,

@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 namespace HackerNewsAggregator.Models;
 
+[ExcludeFromCodeCoverage]
 public sealed class HackerNewsItem
 {
     [JsonPropertyName("id")]
