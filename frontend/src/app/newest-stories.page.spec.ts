@@ -9,6 +9,8 @@ const mockStories: HackerNewsStory[] = [
   { id: 2, title: 'Second Story', by: 'Bob', url: null, time: 1700001000, score: 5 }
 ];
 
+const flushMicrotasks = () => new Promise<void>(queueMicrotask);
+
 describe('NewestStoriesPage', () => {
   let fixture: ComponentFixture<NewestStoriesPage>;
   let httpMock: HttpTestingController;
@@ -27,12 +29,13 @@ describe('NewestStoriesPage', () => {
     httpMock.verify();
   });
 
-  it('loads and renders stories', () => {
+  it('loads and renders stories', async () => {
     fixture.detectChanges();
 
     const req = httpMock.expectOne('/api/hackernews/newest?count=100');
     expect(req.request.method).toBe('GET');
     req.flush(mockStories);
+    await flushMicrotasks();
 
     fixture.detectChanges();
 
@@ -41,11 +44,12 @@ describe('NewestStoriesPage', () => {
     expect(compiled.textContent).toContain('Second Story');
   });
 
-  it('shows an error state on failure', () => {
+  it('shows an error state on failure', async () => {
     fixture.detectChanges();
 
     const req = httpMock.expectOne('/api/hackernews/newest?count=100');
     req.flush('Server error', { status: 500, statusText: 'Server Error' });
+    await flushMicrotasks();
 
     fixture.detectChanges();
 
@@ -53,11 +57,12 @@ describe('NewestStoriesPage', () => {
     expect(compiled.textContent).toContain('Unable to load Hacker News stories');
   });
 
-  it('filters stories with case-insensitive search', () => {
+  it('filters stories with case-insensitive search', async () => {
     fixture.detectChanges();
 
     const req = httpMock.expectOne('/api/hackernews/newest?count=100');
     req.flush(mockStories);
+    await flushMicrotasks();
 
     fixture.detectChanges();
 
@@ -71,7 +76,7 @@ describe('NewestStoriesPage', () => {
     expect(compiled.textContent).not.toContain('Second Story');
   });
 
-  it('paginates results', () => {
+  it('paginates results', async () => {
     const stories: HackerNewsStory[] = Array.from({ length: 12 }, (_, index) => ({
       id: index + 1,
       title: `Story ${index + 1}`,
@@ -84,6 +89,7 @@ describe('NewestStoriesPage', () => {
     fixture.detectChanges();
     const req = httpMock.expectOne('/api/hackernews/newest?count=100');
     req.flush(stories);
+    await flushMicrotasks();
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
@@ -98,11 +104,12 @@ describe('NewestStoriesPage', () => {
     expect(compiled.textContent).toContain('Story 11');
   });
 
-  it('renders a fallback when url is missing', () => {
+  it('renders a fallback when url is missing', async () => {
     fixture.detectChanges();
 
     const req = httpMock.expectOne('/api/hackernews/newest?count=100');
     req.flush(mockStories);
+    await flushMicrotasks();
 
     fixture.detectChanges();
 

@@ -36,13 +36,17 @@ export class NewestStoriesPage implements OnInit {
 
     this.api.getNewestStories(100).subscribe({
       next: (stories) => {
-        this.stories = stories ?? [];
-        this.applyFilters();
-        this.loading = false;
+        queueMicrotask(() => {
+          this.stories = stories ?? [];
+          this.applyFilters();
+          this.loading = false;
+        });
       },
       error: () => {
-        this.errorMessage = 'Unable to load Hacker News stories. Please try again.';
-        this.loading = false;
+        queueMicrotask(() => {
+          this.errorMessage = 'Unable to load Hacker News stories. Please try again.';
+          this.loading = false;
+        });
       }
     });
   }
