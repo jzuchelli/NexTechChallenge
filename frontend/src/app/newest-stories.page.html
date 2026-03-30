@@ -1,0 +1,64 @@
+<section class="page">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Hacker News Monitor</p>
+      <h1>Newest Stories</h1>
+      <p class="subtitle">Search, filter, and page through the freshest submissions.</p>
+    </div>
+    <div class="search">
+      <label for="query">Search stories</label>
+      <input
+        id="query"
+        type="text"
+        placeholder="Search title, author, or URL"
+        [(ngModel)]="query"
+        (ngModelChange)="onQueryChange()"
+      />
+    </div>
+  </header>
+
+  <section class="status" *ngIf="loading">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Loading newest stories...</p>
+  </section>
+
+  <section class="status error" *ngIf="!loading && errorMessage">
+    <p>{{ errorMessage }}</p>
+    <button type="button" (click)="load()">Retry</button>
+  </section>
+
+  <section class="results" *ngIf="!loading && !errorMessage">
+    <div class="meta">
+      <p>{{ totalCount }} stories found</p>
+      <p>Page {{ page }} of {{ totalPages }}</p>
+    </div>
+
+    <ul class="story-list">
+      <li *ngFor="let story of pagedStories" class="story">
+        <div>
+          <h3>{{ story.title || 'Untitled story' }}</h3>
+          <p class="details">
+            <span>by {{ story.by || 'unknown' }}</span>
+            <span>score {{ story.score ?? 0 }}</span>
+            <span>{{ story.time * 1000 | date: 'medium' }}</span>
+          </p>
+        </div>
+        <div class="link">
+          <a *ngIf="story.url" [href]="story.url" target="_blank" rel="noopener">
+            Visit
+          </a>
+          <span *ngIf="!story.url" class="muted">No link</span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="pager">
+      <button type="button" (click)="previousPage()" [disabled]="page === 1">
+        Previous
+      </button>
+      <button type="button" (click)="nextPage()" [disabled]="page === totalPages">
+        Next
+      </button>
+    </div>
+  </section>
+</section>
