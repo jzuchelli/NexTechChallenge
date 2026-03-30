@@ -11,6 +11,7 @@ builder.Services.AddHttpClient<HackerNewsAggregator.Services.IHackerNewsClient, 
     client.BaseAddress = new Uri("https://hacker-news.firebaseio.com/v0/");
 });
 builder.Services.AddScoped<HackerNewsAggregator.Services.IHackerNewsService, HackerNewsAggregator.Services.HackerNewsService>();
+builder.Services.AddScoped<HackerNewsAggregator.Services.IHackerNewsStorySearchService, HackerNewsAggregator.Services.HackerNewsStorySearchService>();
 builder.Services.Configure<HackerNewsAggregator.Services.HackerNewsOptions>(builder.Configuration.GetSection("HackerNews"));
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
