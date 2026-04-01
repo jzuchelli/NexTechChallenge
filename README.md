@@ -8,7 +8,7 @@
 ## Running the Solution Locally
 1. **Prerequisites**
    - [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) (matches `net10.0` in `backend/HackerNewsAggregator.csproj`).
-   - [Node.js (18+)](https://nodejs.org/) with npm or an alternative package manager (yarn/pnpm) for the Angular app.
+   - [Node.js (20.19+ or 22.12+)](https://nodejs.org/) with npm or an alternative package manager (yarn/pnpm) for the Angular app.
 
 2. **Backend**
    ```bash
@@ -37,10 +37,14 @@ dotnet test HackerNewsAggregator.slnx
 ```
 Unit tests live under `backend.Tests/` and cover caching behavior and input validation for the Hacker News service.
 
+## Known Limitations (Interview Context)
+- **No server-side search**: the app fetches the newest stories and performs filtering/paging on the client, so search is limited to the fetched set (`count=100`).
+- **Upstream dependency**: the backend depends on the public Hacker News API with no retry/backoff strategy; transient failures surface to the client.
+- **Integration tests require internet**: `backend.IntegrationTests` exercise real HTTP against the Hacker News API and may fail offline.
+
 ## Supporting Information
 - `.gitignore` already filters .NET artifacts, IDE folders, and Angular/node build outputs to keep commits clean.
 - `docs/Agents.md` records the current repository state and guidance for future agents. Always consult it before making large changes.
-- Since no git remote exists yet, initialize one when you are ready (`git remote add origin ...`), push `main`, then configure the remote’s default branch accordingly.
 
 ## Suggestions for Successors
 - Run `dotnet run` and `npm run start` together to smoke-test the interaction surface before adding features.
