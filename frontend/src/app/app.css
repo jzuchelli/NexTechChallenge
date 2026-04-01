@@ -3,14 +3,14 @@
 }
 
 .app-header {
-  font-family: "Share Tech Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  font-family: var(--font-sans);
   padding: 16px 24px;
-  background: #06140b;
-  color: #7dff8a;
-  letter-spacing: 0.18em;
+  background: var(--bg-header);
+  color: var(--accent);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   font-size: 0.75rem;
-  border-bottom: 1px solid #0f2f1a;
+  border-bottom: 1px solid var(--border);
 }
 
 .brand {
@@ -22,13 +22,13 @@
 .brand-link {
   letter-spacing: 0.08em;
   font-size: 0.65rem;
-  color: #b5f7c0;
+  color: var(--muted);
   text-decoration: none;
 }
 
 .brand-link:hover,
 .brand-link:focus-visible {
-  color: #7dff8a;
+  color: var(--accent-strong);
   text-decoration: underline;
 }
 

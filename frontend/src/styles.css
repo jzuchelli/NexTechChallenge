@@ -1,4 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+  --font-sans: "Nunito", "Avenir Next", "Avenir", "Segoe UI", system-ui, sans-serif;
+  --bg-edge: #04060d;
+  --bg-center: #0b1a2b;
+  --bg-header: #0a1a28;
+  --card: #0f2536;
+  --card-strong: #132b3f;
+  --border: #1e3a52;
+  --text: #f2f5ff;
+  --muted: #b4c4d6;
+  --accent: #6ee7c8;
+  --accent-strong: #42d6b3;
+  --danger-bg: #3b1418;
+  --danger: #ffb3b3;
+}
 
 * {
   box-sizing: border-box;
@@ -6,7 +22,7 @@
 
 body {
   margin: 0;
-  font-family: "Share Tech Mono", "SFMono-Regular", Menlo, Consolas, monospace;
-  background: #030a05;
-  color: #c8ffbf;
+  font-family: var(--font-sans);
+  background: var(--bg-edge);
+  color: var(--text);
 }
