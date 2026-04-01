@@ -5,6 +5,14 @@
 - **Backend**: `backend/` is an ASP.NET Core Web API with a controller-based Hacker News newest-stories endpoint (`GET /api/hackernews/newest`). It uses a typed `HttpClient` and `IMemoryCache` for low-latency fetches from the Hacker News API.
 - **Frontend**: `frontend/` will host the Angular SPA. At minimum it needs `package.json`/CLI configuration to interact with the backend APIs and present a curated Hacker News experience. Keep UI logic segregated here so it can ship independently of the API.
 
+```mermaid
+flowchart LR
+    UI[Frontend (Angular)] -->|GET /api/hackernews/newest| API[Backend API]
+    API -->|Fetch newest stories| HN[Hacker News API]
+    HN -->|Story data| API
+    API -->|Aggregated response| UI
+```
+
 ## Running the Solution Locally
 1. **Prerequisites**
    - [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) (matches `net10.0` in `backend/HackerNewsAggregator.csproj`).
