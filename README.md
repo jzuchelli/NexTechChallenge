@@ -45,6 +45,11 @@ dotnet test HackerNewsAggregator.slnx
 ```
 Unit tests live under `backend.Tests/` and cover caching behavior and input validation for the Hacker News service.
 
+## UI Iteration Notes
+![First UI iteration](docs/Images/FirstUiIteration.png)
+
+The screenshot above shows the first iteration of the UI. After UAT and UX testing, I implemented feedback from my wife to deliver a better user experience.
+
 ## Known Limitations (Interview Context)
 - **No server-side search**: the app fetches the newest stories and performs filtering/paging on the client, so search is limited to the fetched set (`count=100`).
 - **Upstream dependency**: the backend depends on the public Hacker News API with no retry/backoff strategy; transient failures surface to the client.
