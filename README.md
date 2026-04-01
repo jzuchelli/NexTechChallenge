@@ -7,8 +7,8 @@
 
 ```mermaid
 flowchart LR
-    UI[Frontend (Angular)] -->|"GET /api/hackernews/newest"| API[Backend API]
-    API -->|Fetch newest stories| HN[Hacker News API]
+    UI["Frontend (Angular)"] -->|GET /api/hackernews/newest| API["Backend API"]
+    API -->|Fetch newest stories| HN["Hacker News API"]
     HN -->|Story data| API
     API -->|Aggregated response| UI
 ```
