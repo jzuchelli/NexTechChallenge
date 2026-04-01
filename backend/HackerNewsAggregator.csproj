@@ -15,6 +15,9 @@
     <Content Include="..\docs\Agents.md">
       <Link>docs\Agents.md</Link>
     </Content>
+    <Content Include="..\README.md">
+      <Link>docs\README.md</Link>
+    </Content>
   </ItemGroup>
 
 </Project>

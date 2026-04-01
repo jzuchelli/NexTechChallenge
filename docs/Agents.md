@@ -19,8 +19,7 @@
 - **Services**:
   - `IHackerNewsClient`/`HackerNewsClient` for typed HTTP calls to the HN API.
   - `IHackerNewsService`/`HackerNewsService` for cached newest stories.
-  - `IHackerNewsStorySearchService`/`HackerNewsStorySearchService` for normalized, cached (5 min) newest 100 stories, with search + paging.
-- **Models**: `HackerNewsItem` maps HN API JSON; `HackerNewsStory` is the API response model; `PagedResult<T>` for paged responses.
+- **Models**: `HackerNewsItem` maps HN API JSON; `HackerNewsStory` is the API response model.
 - **Caching**: `HackerNewsOptions` configured via `appsettings.json` and `appsettings.Development.json`.
 - **OpenAPI & Scalar**: OpenAPI is mapped in Development; Scalar UI available at `/scalar`.
 - **CORS**: Allowed origin `http://localhost:4200` for frontend dev.
